@@ -20,7 +20,7 @@ defmodule MyexpensesPhx.MixProject do
   def application do
     [
       mod: {MyexpensesPhx.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:ueberauth, :ueberauth_auth0, :logger, :runtime_tools]
     ]
   end
 
@@ -41,8 +41,10 @@ defmodule MyexpensesPhx.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:poison, "~> 3.1"},
+      {:plug_cowboy, "~> 2.0"},
+      {:ueberauth, "~> 0.4"},
+      {:ueberauth_auth0, "~> 0.3"}
     ]
   end
 

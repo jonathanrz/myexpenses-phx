@@ -13,10 +13,19 @@ defmodule MyexpensesPhxWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", MyexpensesPhxWeb do
+  scope "/auth", MyexpensesPhxWeb do
     pipe_through :browser
 
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+    post "/:provider/callback", AuthController, :callback
+  end
+
+  scope "/", MyexpensesPhxWeb do
+    pipe_through :browser
     get "/", PageController, :index
+
+    get "/logout", AuthController, :logout
   end
 
   # Other scopes may use custom stacks.
