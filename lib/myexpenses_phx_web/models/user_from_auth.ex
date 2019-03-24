@@ -6,6 +6,7 @@ defmodule UserFromAuth do
   require Poison
 
   alias Ueberauth.Auth
+  alias MyexpensesPhx.Users
 
   def find_or_create(%Auth{provider: :identity} = auth) do
     case validate_pass(auth.credentials) do
@@ -33,7 +34,13 @@ defmodule UserFromAuth do
   end
 
   defp basic_info(auth) do
-    %{id: auth.uid, name: name_from_auth(auth), avatar: avatar_from_auth(auth)}
+    case Users.get_user!(auth.info.email) do
+      nil -> case Users.create_user(%{email: auth.info.email, name: name_from_auth(auth)}) do
+        {:ok, user} -> %{id: user.id, uid: auth.uid, email: auth.info.email, name: name_from_auth(auth), avatar: avatar_from_auth(auth)}
+        nil -> %{uid: auth.uid, email: auth.info.email, name: name_from_auth(auth), avatar: avatar_from_auth(auth)}
+      end
+      user -> %{id: user.id, uid: auth.uid, email: auth.info.email, name: name_from_auth(auth), avatar: avatar_from_auth(auth)}
+    end
   end
 
   defp name_from_auth(auth) do
