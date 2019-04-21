@@ -1,0 +1,28 @@
+<h1>Listing Bank accounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>User</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for bank_account <- @bank_accounts do %>
+    <tr>
+      <td><%= bank_account.name %></td>
+      <td><%= bank_account.user_id %></td>
+
+      <td>
+        <%= link "Show", to: Routes.bank_account_path(@conn, :show, bank_account) %>
+        <%= link "Edit", to: Routes.bank_account_path(@conn, :edit, bank_account) %>
+        <%= link "Delete", to: Routes.bank_account_path(@conn, :delete, bank_account), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Bank account", to: Routes.bank_account_path(@conn, :new) %></span>

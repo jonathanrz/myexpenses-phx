@@ -1,0 +1,18 @@
+<h1>Show Bank account</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @bank_account.name %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @bank_account.user_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.bank_account_path(@conn, :edit, @bank_account) %></span>
+<span><%= link "Back", to: Routes.bank_account_path(@conn, :index) %></span>
