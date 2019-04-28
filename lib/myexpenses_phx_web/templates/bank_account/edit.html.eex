@@ -1,0 +1,5 @@
+<h1>Edit Bank account</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.bank_account_path(@conn, :update, @bank_account)) %>
+
+<span><%= link "Back", to: Routes.bank_account_path(@conn, :index) %></span>

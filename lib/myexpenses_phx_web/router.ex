@@ -24,6 +24,7 @@ defmodule MyexpensesPhxWeb.Router do
   scope "/", MyexpensesPhxWeb do
     pipe_through :browser
     get "/", PageController, :index
+    resources "/bank-accounts", BankAccountController
 
     get "/logout", AuthController, :logout
   end
