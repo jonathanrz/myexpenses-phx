@@ -17,8 +17,8 @@ defmodule MyexpensesPhx.Data do
       [%BankAccount{}, ...]
 
   """
-  def list_bank_accounts do
-    Repo.all(BankAccount)
+  def list_bank_accounts(user) do
+    Repo.all(from a in BankAccount, where: a.user_id == ^user.id)
   end
 
   @doc """
