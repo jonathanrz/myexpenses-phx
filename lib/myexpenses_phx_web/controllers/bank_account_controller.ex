@@ -42,7 +42,13 @@ defmodule MyexpensesPhxWeb.BankAccountController do
 
   def show(conn, %{"id" => id}) do
     bank_account = Data.get_bank_account!(id)
-    render(conn, "show.html", bank_account: bank_account)
+    user = get_session(conn, :current_user)
+    cond do
+      bank_account.user_id == user.id -> render(conn, "show.html", bank_account: bank_account)
+      true -> conn
+              |> put_flash(:error, "You don't have access to this bank account.")
+              |> redirect(to: Routes.bank_account_path(conn, :index))
+    end
   end
 
   def edit(conn, %{"id" => id}) do
