@@ -28,7 +28,8 @@ defmodule MyexpensesPhxWeb.BankAccountController do
   end
 
   def create(conn, %{"bank_account" => bank_account_params}) do
-    case Data.create_bank_account(bank_account_params) do
+    user = get_session(conn, :current_user)
+    case Data.create_bank_account(Map.put(bank_account_params, "user_id", user.id)) do
       {:ok, bank_account} ->
         conn
         |> put_flash(:info, "Bank account created successfully.")
